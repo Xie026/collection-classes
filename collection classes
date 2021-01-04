@@ -1,0 +1,184 @@
+1、
+import java.util.ArrayList;
+import java.util.*;
+public class Practice {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		book book1=new book();
+		book book2=new book();
+		book book3=new book();
+		
+		book1.setNumber(1);
+		book1.setName("Java语言程序设计与数据结构");
+		book1.setPrice(99.00);
+		book1.setPublisher("机械工业出版社");
+	
+		book2.setNumber(2);
+		book2.setName("计算机组成与结构");
+		book2.setPrice(35.00);
+		book2.setPublisher("清华大学出版社");
+		
+		book3.setNumber(3);
+		book3.setName("毛泽东思想和中国特色社会主义理论体系");
+		book3.setPrice(25.00);
+		book3.setPublisher("高等教育出版社");
+		
+		HashMap<Integer,book> bookHashMap=new HashMap<Integer,book>();
+		bookHashMap.put(book1.getNumber(), book1);
+		bookHashMap.put(book2.getNumber(), book2);
+		bookHashMap.put(book3.getNumber(), book3);
+
+        ArrayList<HashMap<Integer,book>> bookList=new ArrayList<HashMap<Integer,book>>();
+        bookList.add(bookHashMap);
+
+        for(HashMap<Integer,book> k:bookList) {
+        	Set<Integer> key=k.keySet();
+        	for(Integer j:key) {
+        		System.out.println(j+"  "+k.get(j).getName()+"  " + k.get(j).getPrice()+"  "+k.get(j).getPublisher());
+        	}
+        }
+	}
+
+}
+
+class book{
+	private int number;
+	private String name;
+	private double price;
+	private String publisher;
+	
+	public book() {
+	}
+	
+	public book(int number,String name,double price,String publisher) {
+		this.number=number;
+		this.name=name;
+		this.price=price;
+		this.publisher=publisher;
+	}
+	
+	public int getNumber() {
+		return number;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public double getPrice() {
+		return price;
+	}
+	
+	public String getPublisher() {
+		return publisher;
+	}
+	
+	public void setNumber(int number) {
+		this.number=number;
+	}
+	
+	public void setName(String name) {
+		this.name=name;
+	}
+	
+	public void setPrice(double price) {
+		this.price=price;
+	}
+	
+	public void setPublisher(String publisher) {
+		this.publisher=publisher;
+	}
+}
+
+
+
+
+
+2、
+import java.util.Scanner;
+import java.util.TreeSet;
+import java.util.Iterator;
+import java.util.Set;
+
+public class Practice {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner input=new Scanner(System.in);
+		Set<Student> student1=new TreeSet<Student>();
+		
+		while(true) {
+			String number=input.next();
+			if("exit".equals(number)) {
+				break;
+			}
+			
+			String name=input.next();
+			int age=input.nextInt();
+			Student student2=new Student(number, name, age);
+			student1.add(student2);
+		}
+		
+		Iterator<Student> student3=student1.iterator();
+		while(student3.hasNext()) {
+			Student student4=(Student)student3.next();
+			System.out.println("name: "+ student4.getName());
+		}
+	}
+
+}
+
+class Student implements Comparable{
+	
+	private String number;
+	private String name;
+	private int age;
+	
+	public Student(String number, String name, int age) {
+		this.number=number;
+		this.name=name;
+		this.age=age;
+	}
+	
+	public String getNumber() {
+		return number;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public int getAge() {
+		return age;
+	}
+	
+	public void setNumber(String number) {
+		this.number=number;
+	}
+	
+	public void setName(String name) {
+		this.name=name;
+	}
+	
+	public void setAge(int age) {
+		this.age=age;
+	}
+	
+	public int compareTo(Object s1) {
+		if(!(s1 instanceof Student)) {
+			throw new RuntimeException("不是Student对象");
+		}
+		Student s2=(Student)s1;
+		
+		if(this.age>s2.age) {
+			return 1;
+		}
+		else if(this.age==s2.age){
+			return name.compareTo(s2.name);
+		}
+		else {
+			return -1;
+		}
+	}
+}
